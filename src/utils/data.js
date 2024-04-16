@@ -1,4 +1,4 @@
-export const dataTest = [
+export const data = [
     {"date":"2020-07-01","visits":213},
     {"date":"2020-07-02","visits":249},
     {"date":"2020-07-03","visits":179},
