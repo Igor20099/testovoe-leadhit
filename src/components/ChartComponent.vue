@@ -18,10 +18,8 @@ root = am5.Root.new(chartdiv.value);
 
 root.setThemes([am5themes_Animated.new(root)]);
 
-var chart = root.container.children.push( 
+const chart = root.container.children.push( 
   am5xy.XYChart.new(root, {
-    panY: false,
-    wheelY: "zoomX",
     layout: root.verticalLayout,
     maxTooltipDistance: 0
   }) 
@@ -33,14 +31,12 @@ var chart = root.container.children.push(
 
 const dataGraphic = data.map((obj) => {
     const date = new Date(obj.date)
-    console.log(date.getTime())
     return {...obj,date:date.getTime()}
 })
 
-console.log(dataGraphic)
 
 // Create Y-axis
-var yAxis = chart.yAxes.push(
+const yAxis = chart.yAxes.push(
   am5xy.ValueAxis.new(root, {
     extraTooltipPrecision: 1,
     renderer: am5xy.AxisRendererY.new(root, {})
@@ -48,7 +44,7 @@ var yAxis = chart.yAxes.push(
 );
 
 // Create X-Axis
-var xAxis = chart.xAxes.push(
+const xAxis = chart.xAxes.push(
   am5xy.DateAxis.new(root, {
     baseInterval: { timeUnit: "day", count: 1 },
    
@@ -56,25 +52,30 @@ var xAxis = chart.xAxes.push(
   })
 );
 
-xAxis.get("dateFormats")["day"] = "dd/MM";
-xAxis.get("periodChangeDateFormats")["day"] = "dd/MM";
+xAxis.get("dateFormats")["day"] = "dd.MM";
+xAxis.get("periodChangeDateFormats")["day"] = "dd.MM";
+
 
 // Create series
-function createSeries(name, field) {
-  var series = chart.series.push( 
+function createSeries( field) {
+  const tooltip = am5.Tooltip.new(root, {
+  pointerOrientation: "horizontal",
+  labelText: "Дата: {valueX.formatDate('dd.MM')}\nКол-во посещений: {valueY}",
+});
+
+  const series = chart.series.push( 
     am5xy.LineSeries.new(root, { 
-      name: name,
       xAxis: xAxis, 
       yAxis: yAxis, 
       valueYField: field, 
       valueXField: 'date',
-      tooltip: am5.Tooltip.new(root, {
-    pointerOrientation: "right",
-    labelText: "[bold]{name}[/]\n{valueX.formatDate('dd.M')}: {valueY}"
-  }),
-      maskBullets: false
+      maskBullets: false,
+      fill: am5.color('#e6c8fa'),
+    stroke: am5.color('#9500fc')
     }) 
   );
+
+  series.set("tooltip", tooltip);
   
   series.bullets.push(function() {
     return am5.Bullet.new(root, {
@@ -86,13 +87,18 @@ function createSeries(name, field) {
   });
   
   
-  series.strokes.template.set("strokeWidth", 2);
-  
-  series.get("tooltip").label.set("text", "[bold]{name}[/]\n{valueX.formatDate(): {valueY}")
+  series.strokes.template.setAll({
+    strokeWidth: 3
+  });
+  series.fills.template.setAll({
+    fillOpacity: 1,
+    visible: true
+  });
+
   series.data.setAll(dataGraphic);
 }
 
-createSeries("Кол-во посещений", "visits",'date');
+createSeries( "visits");
 
 // Add cursor
 chart.set("cursor", am5xy.XYCursor.new(root, {
@@ -105,7 +111,7 @@ chart.set("cursor", am5xy.XYCursor.new(root, {
 
 <style scoped>
 .graphic {
-    width: 800px;
-    height: 480px;
+    width: 600px;
+    height: 320px;
 }
 </style>
