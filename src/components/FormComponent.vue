@@ -13,6 +13,10 @@ import {ref} from 'vue'
 const idInput = ref('')
 const isError = ref(false)
 
+defineProps ({
+    isError:Boolean
+})
+
 
 </script>
 
@@ -20,10 +24,11 @@ const isError = ref(false)
 .form {
   display: flex;
   flex-direction: column;
+  width:320px;
 }
 
 .form__input {
-margin-bottom: 8px;
+margin-bottom: 16px;
 border: 1px solid #808080;
 padding: 8px;
 }
@@ -38,8 +43,10 @@ padding: 8px;
 }
 
 .form__button {
-  background: #a1a0a0;
+  background: #d4d4d4;
 }
+
+
 
 .form__label {
   align-self: flex-start;

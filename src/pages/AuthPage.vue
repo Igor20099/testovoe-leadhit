@@ -1,7 +1,7 @@
 <template>
    <div>
       <h1>LeadHit</h1>
-      <FormComponent @handleAuth="handleAuth"/>
+      <FormComponent @handleAuth="handleAuth" :isError = 'isError'/>
   </div>
 </template>
 
@@ -13,6 +13,7 @@ import FormComponent from '../components/FormComponent.vue';
 import { URL, API_KEY, SITE_ID } from '../utils/consts';
 
 const router = useRouter()
+const isError = ref(false)
 
 const handleAuth = async (idInput) => {
   if (idInput.length === 24) {
@@ -21,9 +22,9 @@ const handleAuth = async (idInput) => {
       localStorage.setItem('leadhit-site-id', SITE_ID);
       router.push('/analytics')
     }
-    // isError.value = false
+    isError.value = false
   } else {
-    // isError.value = true
+    isError.value = true
   }
 }
 
