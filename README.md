@@ -1,7 +1,14 @@
-# Vue 3 + Vite
+# Тестовое задание LeadHit
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Выполненное тестовое задание на вакансию Frontend разработчика в LeadHit
 
-## Recommended IDE Setup
+## Технологии
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+- HTML5
+- CSS3
+- JavaScript
+- Vue
+- Vuex
+- Vue router
+- Axios
+- amCharts5 (библиотека для создания графика по входным данным)
