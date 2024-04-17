@@ -7,6 +7,7 @@
 - HTML5
 - CSS3
 - JavaScript
+- Vite
 - Vue
 - Vuex
 - Vue router
